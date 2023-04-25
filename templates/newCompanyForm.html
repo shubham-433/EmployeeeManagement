@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- for message  -->
+<div class="d-flex  justify-content-center z-index-10000">
+    <div class="container mt-3 w-50 position-absolute ">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert  alert-{{message.tags}} fade show {{message.tags}}  flex-1" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+          </div>
+        {% endfor %}
+    {% endif %}
+    
+    </div>
+  </div>
+
+  
+<div class="container mt-5 position-relative z-index-1">
+    <div class="d-flex flex-row-reverse bd-highlight">
+       <a href="{%url 'home'%}" class="btn btn-outline-primary px-4">Back</a>
+    </div>
+    <form method="post" action="">
+        <div class="card w-50 container p-3 mt-3">
+            <fieldset>
+                {% csrf_token %}
+          
+                {% for fm in form %}
+                    <div class="form-group">
+                        {{fm.label_tag}}
+                        {{fm}}
+                        <small class="text-danger">{{fm.errors|striptags}}</small>
+                    </div>
+                {% endfor %}
+               <div class="py-2"> <button class="btn btn-primary w-100" type="submit">Submit</button></div>
+               <div>
+               </div>
+              </fieldset>
+          
+        </div>
+    
+    
+      </form>
+</div>
+{% endblock content %}
